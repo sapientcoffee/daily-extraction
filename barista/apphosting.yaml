@@ -1,0 +1,7 @@
+env:
+  - variable: PRESS_SERVICE_URL
+    value: https://press-service-s3eff6ac4a-uc.a.run.app
+  - variable: MINDSET_SERVICE_URL
+    value: https://mindset-service-s3eff6ac4a-uc.a.run.app
+  - variable: ORIGIN_SERVICE_URL
+    value: https://origin-service-s3eff6ac4a-uc.a.run.app

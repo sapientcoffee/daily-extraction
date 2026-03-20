@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"origin-service/handlers"
 )
 
@@ -52,8 +53,12 @@ func main() {
 		w.Write([]byte(`{"status":"ok"}`))
 	}))
 
-	fmt.Println("Origin Service running on :8080")
-	if err := http.ListenAndServe(":8080", mux); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	fmt.Printf("Origin Service running on :%s\n", port)
+	if err := http.ListenAndServe(":"+port, mux); err != nil {
 		log.Fatalf("could not start server: %v", err)
 	}
 }

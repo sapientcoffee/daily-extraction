@@ -85,4 +85,7 @@ Thumbs.db
 .env.local
 
 # Gemini CLI
-.gemini/
+# .gemini/
+
+# Security audit reports
+.security-audit/

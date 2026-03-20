@@ -9,7 +9,7 @@ export default function BrewingGuide() {
   const [methods, setMethods] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:8081/brew')
+    fetch('/api/brew')
       .then(res => res.json())
       .then(data => setMethods(data))
       .catch(err => console.error("Error fetching brew methods.", err));

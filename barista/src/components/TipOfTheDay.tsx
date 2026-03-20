@@ -9,7 +9,7 @@ export default function TipOfTheDay() {
   const [tip, setTip] = useState<any>(null);
 
   useEffect(() => {
-    fetch('http://localhost:8081/tips/random')
+    fetch('/api/tips/random')
       .then(res => res.json())
       .then(data => setTip(data))
       .catch(err => console.error("Error fetching tip.", err));

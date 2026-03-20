@@ -15,7 +15,7 @@ export default function ReleaseNotesFeed({ refreshKey = 0 }: ReleaseNotesFeedPro
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:8081/release-notes')
+    fetch('/api/release-notes')
       .then(res => res.json())
       .then(data => { setNotes(data); setLoading(false); })
       .catch(err => { console.error("Error fetching release notes.", err); setLoading(false); });

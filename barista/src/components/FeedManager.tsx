@@ -34,7 +34,7 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
 
   const fetchFeeds = useCallback(async () => {
     try {
-      const res = await fetch('http://localhost:8081/feeds');
+      const res = await fetch('/api/feeds');
       const data = await res.json();
       setFeeds(data);
     } catch {
@@ -53,7 +53,7 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:8081/feeds', {
+      const res = await fetch('/api/feeds', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), url: url.trim() }),
@@ -78,7 +78,7 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
 
   const handleRemove = async (id: string) => {
     try {
-      await fetch(`http://localhost:8081/feeds/${id}`, { method: 'DELETE' });
+      await fetch(`/api/feeds/${id}`, { method: 'DELETE' });
       await fetchFeeds();
       onFeedsChanged?.();
     } catch {
