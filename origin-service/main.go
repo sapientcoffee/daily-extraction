@@ -1,3 +1,6 @@
+// Copyright 2026 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+
 // Package main implements the Origin Service for The Daily Extraction.
 //
 // The Origin Service is a lightweight HTTP server that provides coffee

@@ -1,3 +1,6 @@
+// Copyright 2026 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+
 // Package models defines the data structures used by the Origin Service.
 // These types are serialized to JSON and served via the HTTP API.
 // They correspond to the TypeScript interfaces in shared/types.ts.

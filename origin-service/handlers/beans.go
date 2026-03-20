@@ -1,3 +1,6 @@
+// Copyright 2026 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+
 // Package handlers contains the HTTP request handlers for the Origin Service.
 package handlers
 

@@ -1,3 +1,6 @@
+// Copyright 2026 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * @module llm
  * @description Mock LLM service for text summarization and categorization.
