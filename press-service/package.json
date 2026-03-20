@@ -1,0 +1,24 @@
+{
+  "name": "press-service",
+  "version": "1.0.0",
+  "description": "RSS Aggregator for GCP Release Notes",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.0",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.8.1"
+  }
+}
