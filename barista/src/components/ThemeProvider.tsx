@@ -1,3 +1,6 @@
+// Copyright 2026 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from 'react';

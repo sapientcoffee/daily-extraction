@@ -1,3 +1,6 @@
+// Copyright 2026 Google LLC.
+// SPDX-License-Identifier: Apache-2.0
+
 /**
  * @module feedStore
  * @description In-memory store for managing RSS feed sources.
