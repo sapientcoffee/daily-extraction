@@ -32,6 +32,8 @@ const logger = require('./logger');
 const app = express();
 const PORT = process.env.PORT || 8081;
 
+let isChaosActive = false;
+
 app.use(cors());
 app.use(express.json());
 
@@ -141,10 +143,17 @@ app.get('/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
+/** GET /chaos/status — Returns current chaos state */
+app.get('/chaos/status', (req, res) => {
+    res.json({ isChaosActive });
+});
+
 /**
  * POST /chaos — Injects "Back to the Future" themed logs for chaos engineering testing.
  */
 app.post('/chaos', (req, res) => {
+    isChaosActive = true;
+
     logger.warn('Critical failure: fluxcapacity not fluxing', { 
         current_power: '0.21 giggawats', 
         required_power: '1.21 giggawats',
@@ -176,6 +185,18 @@ app.post('/chaos', (req, res) => {
     });
 
     res.json({ status: 'chaos_initiated', theme: 'back_to_the_future' });
+});
+
+/**
+ * DELETE /chaos — Mitigates the active chaos state.
+ */
+app.delete('/chaos', (req, res) => {
+    isChaosActive = false;
+    logger.info('Lightning Strike Synchronization complete. 1.21 Gigawatts delivered.', {
+        event: 'MITIGATION_SUCCESS',
+        status: 'SYSTEM_RESTORED'
+    });
+    res.json({ status: 'chaos_mitigated' });
 });
 
 // Start server

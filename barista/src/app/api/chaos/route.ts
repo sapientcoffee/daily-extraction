@@ -37,3 +37,27 @@ export async function POST() {
     return NextResponse.json({ error: 'Failed to initiate chaos', details: error.message }, { status: 500 });
   }
 }
+
+export async function DELETE() {
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}/chaos`;
+  
+  try {
+    const authHeaders = await getAuthHeaders(baseUrl);
+
+    const res = await fetch(url, { 
+      method: 'DELETE',
+      headers: authHeaders
+    });
+    
+    if (!res.ok) {
+        throw new Error(`Upstream service responded with status ${res.status}`);
+    }
+    
+    const data = await res.json();
+    return NextResponse.json(data, { status: res.status });
+  } catch (error: any) {
+    console.error("Error mitigating chaos:", error.message);
+    return NextResponse.json({ error: 'Failed to mitigate chaos', details: error.message }, { status: 500 });
+  }
+}
