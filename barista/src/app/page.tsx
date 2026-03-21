@@ -15,6 +15,7 @@ export default function Home() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleFeedsChanged = () => {
+    console.log("Feeds changed");
     setRefreshKey(prev => prev + 1);
   };
 

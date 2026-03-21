@@ -27,6 +27,7 @@ const express = require('express');
 const cors = require('cors');
 const scraper = require('./scraper');
 const feedStore = require('./feedStore');
+const logger = require('./logger');
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -87,7 +88,7 @@ app.get('/release-notes', async (req, res) => {
         const notes = await scraper.fetchAndSummarizeNotes();
         res.json(notes);
     } catch (error) {
-        console.error('Error fetching release notes:', error);
+        logger.error('Error fetching release notes', { error: error.message, stack: error.stack });
         res.status(500).json({ error: 'Failed to fetch release notes' });
     }
 });
@@ -142,5 +143,5 @@ app.get('/health', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Press Service running on port ${PORT}`);
+    logger.info(`Press Service running on port ${PORT}`);
 });

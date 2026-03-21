@@ -15,6 +15,18 @@ echo "Deploying to Project: $PROJECT_ID in Region: $REGION"
 APP_HOSTING_SA="serviceAccount:firebase-app-hosting-compute@$PROJECT_ID.iam.gserviceaccount.com"
 
 echo "====================================="
+echo "0. Running Tests..."
+echo "====================================="
+echo "Testing Mindset Service..."
+(cd mindset-service && source venv/bin/activate && pytest)
+echo "Testing Origin Service..."
+(cd origin-service && go test ./...)
+echo "Testing Press Service..."
+(cd press-service && npm test)
+echo "Testing Barista..."
+(cd barista && npm test)
+
+echo "====================================="
 echo "1. Deploying Mindset Service (Private)..."
 echo "====================================="
 gcloud run deploy mindset-service \

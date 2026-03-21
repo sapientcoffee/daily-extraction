@@ -16,6 +16,7 @@
 const Parser = require('rss-parser');
 const llm = require('./llm');
 const feedStore = require('./feedStore');
+const logger = require('./logger');
 
 const parser = new Parser();
 
@@ -30,11 +31,11 @@ async function fetchAndSummarizeNotes() {
     const feeds = feedStore.listFeeds();
 
     if (feeds.length === 0) {
-        console.log('No feeds configured.');
+        logger.info('No feeds configured.');
         return [];
     }
 
-    console.log(`Fetching from ${feeds.length} feed(s)...`);
+    logger.info(`Fetching from ${feeds.length} feed(s)...`);
 
     const allNotes = await Promise.all(feeds.map(feed => fetchSingleFeed(feed)));
     // Flatten, sort by date descending, take latest 10
@@ -59,7 +60,7 @@ async function fetchAndSummarizeNotes() {
  */
 async function fetchSingleFeed(feed) {
     try {
-        console.log(`  → Fetching: ${feed.name} (${feed.url})`);
+        logger.info(`Fetching feed`, { feedName: feed.name, url: feed.url });
         const parsed = await parser.parseURL(feed.url);
         const topItems = parsed.items.slice(0, 5);
 
@@ -80,7 +81,7 @@ async function fetchSingleFeed(feed) {
 
         return processedNotes;
     } catch (err) {
-        console.error(`Error parsing feed "${feed.name}":`, err.message);
+        logger.error(`Error parsing feed`, { feedName: feed.name, error: err.message });
         return [{
             id: `error-${feed.id}`,
             title: `⚠ Could not fetch: ${feed.name}`,
