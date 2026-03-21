@@ -2,18 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthHeaders } from '../../../../utils/gcpAuth';
 
 function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_PRESS_SERVICE_URL || process.env.PRESS_SERVICE_URL || 'http://localhost:8081';
+  return process.env.NEXT_PUBLIC_PRESS_SERVICE_URL || process.env.PRESS_SERVICE_URL || 'https://press-service-412558227984.us-central1.run.app';
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/feeds/${id}`;
-  
-  try {
-    const authHeaders = await getAuthHeaders(baseUrl);
 
-    const res = await fetch(url, { method: 'DELETE', headers: authHeaders });
+  try {
+    const authHeaders = await getAuthHeaders('https://press-service-412558227984.us-central1.run.app');
+
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: authHeaders
+    });
     if (res.status === 204) {
       return new NextResponse(null, { status: 204 });
     }

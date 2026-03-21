@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "enabled": true,
+    "enabled": ["*"],
     "AfterTool": [
       {
         "matcher": ".*write_file|.*replace",

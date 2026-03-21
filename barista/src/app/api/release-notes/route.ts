@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { getAuthHeaders } from '../../../utils/gcpAuth';
 
 function getBaseUrl() {
-  return process.env.NEXT_PUBLIC_PRESS_SERVICE_URL || process.env.PRESS_SERVICE_URL || 'http://localhost:8081';
+  return process.env.NEXT_PUBLIC_PRESS_SERVICE_URL || process.env.PRESS_SERVICE_URL || 'https://press-service-412558227984.us-central1.run.app';
 }
 
 export async function GET() {
@@ -19,8 +19,8 @@ export async function GET() {
     }
     const data = await res.json();
     return NextResponse.json(data, { status: res.status });
-  } catch (error) {
-    console.error("Error fetching release notes", error);
+  } catch (error: any) {
+    console.error("Error fetching release notes:", error.message);
     return NextResponse.json({ error: 'Failed to fetch release notes' }, { status: 500 });
   }
 }

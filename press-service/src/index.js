@@ -141,7 +141,48 @@ app.get('/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
-// Start server
-app.listen(PORT, () => {
-    logger.info(`Press Service running on port ${PORT}`);
+/**
+ * POST /chaos — Injects "Back to the Future" themed logs for chaos engineering testing.
+ */
+app.post('/chaos', (req, res) => {
+    logger.warn('Critical failure: fluxcapacity not fluxing', { 
+        current_power: '0.21 giggawats', 
+        required_power: '1.21 giggawats',
+        component: 'fluxcapacity' 
+    });
+    
+    logger.error('Temporal displacement failure', { 
+        target_speed: '88mph', 
+        current_speed: '55mph', 
+        status: 'STUCK_IN_1955',
+        error_code: 'ERR_LOW_VELOCITY'
+    });
+
+    logger.error('1.21 GIGGAWATS REQUIRED! MISSION CRITICAL!', { 
+        event: 'LIGHTNING_STRIKE', 
+        method: 'kites and electricty',
+        location: 'Hill Valley Clock Tower'
+    });
+
+    logger.warn('Clock tower cable disconnected', { 
+        component: 'KITE_ASSEMBLY', 
+        state: 'TENSION_LOST',
+        action_required: 'RECONNECT_CABLE_AT_88MPH'
+    });
+
+    logger.info('Great Scott Marty! We have to go back!', { 
+        destination: '2015', 
+        vehicle: 'DeLorean'
+    });
+
+    res.json({ status: 'chaos_initiated', theme: 'back_to_the_future' });
 });
+
+// Start server
+if (require.main === module) {
+    app.listen(PORT, () => {
+        logger.info(`Press Service running on port ${PORT}`);
+    });
+}
+
+module.exports = app;

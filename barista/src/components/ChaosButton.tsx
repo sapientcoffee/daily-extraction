@@ -8,9 +8,16 @@ import { useState } from 'react';
 export default function ChaosButton() {
   const [chaosActive, setChaosActive] = useState(false);
 
-  const activateChaos = () => {
+  const activateChaos = async () => {
     setChaosActive(true);
-    alert("Chaos Engineering Initiated: Simulating latency across services...");
+    try {
+      const res = await fetch('/api/chaos', { method: 'POST' });
+      if (!res.ok) throw new Error('Failed to inject logs');
+      alert("Temporal Displacement Error: 1.21 Gigawatts required! Flux capacitor not fluxing.");
+    } catch (err) {
+      console.error(err);
+      alert("Chaos Engineering Initiated: Simulating latency across services...");
+    }
     setTimeout(() => setChaosActive(false), 5000);
   };
 
