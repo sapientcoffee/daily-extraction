@@ -11,7 +11,13 @@ export default function BrewingGuide() {
   useEffect(() => {
     fetch('/api/brew')
       .then(res => res.json())
-      .then(data => setMethods(data))
+      .then(data => {
+        if (Array.isArray(data)) {
+          setMethods(data);
+        } else {
+          console.error("Expected array for brew methods, got:", data);
+        }
+      })
       .catch(err => console.error("Error fetching brew methods.", err));
   }, []);
 

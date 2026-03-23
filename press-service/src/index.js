@@ -29,6 +29,8 @@ const scraper = require('./scraper');
 const feedStore = require('./feedStore');
 const logger = require('./logger');
 
+const unusedVar = 'I am unused';
+
 const app = express();
 const PORT = process.env.PORT || 8081;
 

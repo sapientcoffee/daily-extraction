@@ -17,7 +17,14 @@ export default function ReleaseNotesFeed({ refreshKey = 0 }: ReleaseNotesFeedPro
     setLoading(true);
     fetch('/api/release-notes')
       .then(res => res.json())
-      .then(data => { setNotes(data); setLoading(false); })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setNotes(data);
+        } else {
+          console.error("Expected array for release notes, got:", data);
+        }
+        setLoading(false);
+      })
       .catch(err => { console.error("Error fetching release notes.", err); setLoading(false); });
   }, [refreshKey]);
 

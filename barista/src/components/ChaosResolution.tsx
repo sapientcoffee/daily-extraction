@@ -19,8 +19,7 @@ export default function ChaosResolution() {
           } else if (chaosState && !data.isChaosActive) {
              // transitioned from active to inactive
              setChaosState(false);
-             setResolvedMessage("AI Mitigation Successful! 1.21 Gigawatts delivered.");
-             setTimeout(() => setResolvedMessage(null), 10000); // clear after 10s
+             setResolvedMessage("AI Mitigation Successful! Capacitor now has 20% more flux! 1.21 Gigawatts delivered.");
           }
         }
       } catch (err) {

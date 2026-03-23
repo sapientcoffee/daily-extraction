@@ -36,7 +36,11 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
     try {
       const res = await fetch('/api/feeds');
       const data = await res.json();
-      setFeeds(data);
+      if (Array.isArray(data)) {
+        setFeeds(data);
+      } else {
+        console.error("Expected array for feeds, got:", data);
+      }
     } catch {
       console.error('Failed to fetch feeds');
     }

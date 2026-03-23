@@ -31,7 +31,8 @@ export async function getAuthHeaders(targetAudience: string) {
 
     // 2. Fallback: Manually fetch from metadata server
     // Ref: https://cloud.google.com/run/docs/authenticating/service-to-service#python
-    const metadataUrl = `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=${targetAudience}`;
+    const encodedAudience = encodeURIComponent(targetAudience);
+    const metadataUrl = `http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=${encodedAudience}`;
     const metadataRes = await fetch(metadataUrl, {
       headers: { 'Metadata-Flavor': 'Google' }
     });
