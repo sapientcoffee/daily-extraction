@@ -86,6 +86,7 @@ Thumbs.db
 
 # Gemini CLI
 # .gemini/
+nanobanana-output/
 
 # Security audit reports
 .security-audit/

@@ -1,8 +1,12 @@
 # Daily Extraction: Demo Flow
 
+![End-to-End Demo Flow](docs/assets/images/demo-end-to-end-flow.png)
+
 This document outlines the end-to-end demonstration flow using Gemini CLI, showcasing its integration with Google Workspace, GitHub, local development hooks, agentic code reviews, and Google Cloud Observability.
 
 ## 1. Design
+![Step 1: Research](docs/assets/images/demo-step1-research.png)
+
 **Objective:** Bridge the gap between product management and engineering by extracting requirements from a PRD and creating actionable engineering tasks.
 *   **Action:** Provide Gemini CLI with a link to a Google Doc (Product Requirements Document).
 *   **Process:** Gemini CLI uses its Google Workspace integration (`gws-docs`) to read the PRD, extracts the core Customer User Journeys (CUJs), and formats them.
@@ -23,6 +27,8 @@ Could you create user stories for each of these? Follow good practice. When happ
 ```
 
 ## 2. Plan
+![Step 2: Plan & Code](docs/assets/images/demo-step2-plan.png)
+
 **Objective:** Translate the high-level GitHub issue into a concrete technical implementation strategy.
 *   **Action:** Instruct Gemini CLI to look at the newly created GitHub issue and generate an implementation plan.
 *   **Process:** Gemini CLI analyzes the issue requirements against the current state of the codebase (using `codebase_investigator` if necessary) to determine which services and files need to be modified.
@@ -46,8 +52,13 @@ Lgtm, implement the plan
 
 As Gemini CLI writes and saves files, local workspace hooks (e.g., `lint-on-change.sh`) automatically trigger in the background to enforce code style and formatting rules immediately.
 
+```
+github-workflow
+```
 
 ## 4. Review
+![Step 3: Review](docs/assets/images/demo-step3-review.png)
+
 **Objective:** Validate code quality and security posture before deployment.
 *   **Action:** Trigger the review agents on the new changes.
 *   **Process:** 
@@ -73,6 +84,8 @@ Launch two panes and execute following subagents to review the changes
 
 
 ## 5. Operate
+![Step 4: Operate](docs/assets/images/demo-step4-operate.png)
+
 **Objective:** Deploy the application and monitor its behavior in the cloud.
 *   **Action:** Deploy the verified code and observe telemetry.
 *   **Process:** 

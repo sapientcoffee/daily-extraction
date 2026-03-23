@@ -1,5 +1,7 @@
 # ☕ The Daily Extraction
 
+![The Daily Extraction Conceptual Overview](docs/assets/images/app-conceptual-overview.png)
+
 > **AI-Assisted Development & SRE Rituals** — A distributed microservices demo application showcasing modern cloud-native development, AI-assisted workflows, and Site Reliability Engineering patterns.
 
 ---
