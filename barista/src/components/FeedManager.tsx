@@ -18,6 +18,8 @@ interface Feed {
   id: string;
   name: string;
   url: string;
+  product?: string;
+  icon?: string;
 }
 
 interface FeedManagerProps {
@@ -28,6 +30,8 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
   const [feeds, setFeeds] = useState<Feed[]>([]);
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
+  const [product, setProduct] = useState('');
+  const [icon, setIcon] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState('');
@@ -60,7 +64,12 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
       const res = await fetch('/api/feeds', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), url: url.trim() }),
+        body: JSON.stringify({ 
+          name: name.trim(), 
+          url: url.trim(),
+          product: product.trim() || undefined,
+          icon: icon.trim() || undefined
+        }),
       });
 
       if (!res.ok) {
@@ -71,6 +80,8 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
 
       setName('');
       setUrl('');
+      setProduct('');
+      setIcon('');
       await fetchFeeds();
       onFeedsChanged?.();
     } catch {
@@ -138,11 +149,11 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
           </ul>
 
           {/* Add form */}
-          <form onSubmit={handleAdd} className="feed-add-form flex flex-col gap-2">
+          <form onSubmit={handleAdd} className="feed-add-form flex flex-col gap-3">
             <div className="flex gap-2">
               <input
                 type="text"
-                placeholder="Feed name"
+                placeholder="Feed Name (e.g. Gemini Notes)"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 className="feed-input flex-1 min-w-0 px-3 py-2 text-sm rounded-[var(--radius)] bg-[var(--background)] border border-[var(--panel-border)] text-[var(--foreground)] placeholder:opacity-40 focus:outline-none focus:border-[var(--accent)] transition-colors"
@@ -153,6 +164,22 @@ export default function FeedManager({ onFeedsChanged }: FeedManagerProps) {
                 value={url}
                 onChange={e => setUrl(e.target.value)}
                 className="feed-input flex-[2] min-w-0 px-3 py-2 text-sm rounded-[var(--radius)] bg-[var(--background)] border border-[var(--panel-border)] text-[var(--foreground)] placeholder:opacity-40 focus:outline-none focus:border-[var(--accent)] transition-colors"
+              />
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="Product Label (e.g. Gemini)"
+                value={product}
+                onChange={e => setProduct(e.target.value)}
+                className="feed-input flex-1 min-w-0 px-3 py-2 text-sm rounded-[var(--radius)] bg-[var(--background)] border border-[var(--panel-border)] text-[var(--foreground)] placeholder:opacity-40 focus:outline-none focus:border-[var(--accent)] transition-colors"
+              />
+              <input
+                type="text"
+                placeholder="Icon (e.g. ✨)"
+                value={icon}
+                onChange={e => setIcon(e.target.value)}
+                className="feed-input w-24 px-3 py-2 text-sm rounded-[var(--radius)] bg-[var(--background)] border border-[var(--panel-border)] text-[var(--foreground)] placeholder:opacity-40 focus:outline-none focus:border-[var(--accent)] transition-colors"
               />
             </div>
             <button

@@ -53,6 +53,12 @@ Lgtm, implement the plan
 As Gemini CLI writes and saves files, local workspace hooks (e.g., `lint-on-change.sh`) automatically trigger in the background to enforce code style and formatting rules immediately.
 
 ```
+Add an unused variable to @barista/press-service/src/index.js
+```
+
+Explain the lint hook - As Gemini CLI writes and saves files, local workspace hooks (e.g., `lint-on-change.sh`) automatically trigger in the background to enforce code style and formatting rules immediately.
+
+```
 github-workflow
 ```
 

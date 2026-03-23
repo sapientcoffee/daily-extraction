@@ -75,7 +75,9 @@ async function fetchSingleFeed(feed) {
                 summary: summary,
                 category: category,
                 url: item.link,
-                feedSource: feed.name
+                feedSource: feed.name,
+                product: feed.product,
+                icon: feed.icon
             };
         }));
 
@@ -89,7 +91,9 @@ async function fetchSingleFeed(feed) {
             summary: `Failed to load feed from ${feed.url}. The feed may be unavailable or the URL may be invalid.`,
             category: 'Other',
             url: feed.url,
-            feedSource: feed.name
+            feedSource: feed.name,
+            product: feed.product,
+            icon: feed.icon
         }];
     }
 }

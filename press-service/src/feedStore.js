@@ -20,12 +20,31 @@ const crypto = require('crypto');
 /** @type {Map<string, Feed>} */
 const feeds = new Map();
 
-// Seed the store with the default GCP Release Notes feed
-const defaultId = crypto.randomUUID();
-feeds.set(defaultId, {
-    id: defaultId,
-    name: 'GCP Release Notes',
-    url: 'https://cloud.google.com/feeds/gcp-release-notes.xml'
+// Seed the store with the default Google Cloud release notes feeds
+const defaultFeeds = [
+    {
+        name: 'Gemini Code Assist',
+        url: 'https://docs.cloud.google.com/feeds/gemini-codeassist-release-notes.xml',
+        product: 'Gemini',
+        icon: '✨'
+    },
+    {
+        name: 'Cloud Workstations',
+        url: 'https://docs.cloud.google.com/feeds/workstations-release-notes.xml',
+        product: 'Workstations',
+        icon: '💻'
+    },
+    {
+        name: 'Cloud Build',
+        url: 'https://docs.cloud.google.com/feeds/cloudbuild-release-notes.xml',
+        product: 'Cloud Build',
+        icon: '🏗️'
+    }
+];
+
+defaultFeeds.forEach(f => {
+    const id = crypto.randomUUID();
+    feeds.set(id, { id, ...f });
 });
 
 /**
@@ -40,11 +59,13 @@ function listFeeds() {
  * Creates and stores a new feed with a generated UUID.
  * @param {string} name - Human-readable feed name
  * @param {string} url  - RSS/Atom feed URL
+ * @param {string} [product] - Product name (optional)
+ * @param {string} [icon] - Icon for the product (optional)
  * @returns {Feed} The newly created feed object
  */
-function addFeed(name, url) {
+function addFeed(name, url, product, icon) {
     const id = crypto.randomUUID();
-    const feed = { id, name, url };
+    const feed = { id, name, url, product, icon };
     feeds.set(id, feed);
     return feed;
 }

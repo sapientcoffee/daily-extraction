@@ -9,8 +9,20 @@ interface ReleaseNotesFeedProps {
   refreshKey?: number;
 }
 
+interface ReleaseNote {
+  id: string;
+  title: string;
+  url: string;
+  summary: string;
+  publishedAt: string;
+  category: string;
+  feedSource: string;
+  product?: string;
+  icon?: string;
+}
+
 export default function ReleaseNotesFeed({ refreshKey = 0 }: ReleaseNotesFeedProps) {
-  const [notes, setNotes] = useState<any[]>([]);
+  const [notes, setNotes] = useState<ReleaseNote[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,16 +53,19 @@ export default function ReleaseNotesFeed({ refreshKey = 0 }: ReleaseNotesFeedPro
       ) : (
         <ul className="space-y-4">
           {notes.map(n => (
-            <li key={n.id} className="border-t border-gray-800 pt-2">
-              <div className="flex items-center gap-2 flex-wrap">
+            <li key={n.id} className="border-t border-gray-800 pt-4 pb-2">
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <span className="text-xl" title={n.product}>{n.icon || '📝'}</span>
                 <a href={n.url} target="_blank" rel="noreferrer" className="font-bold text-blue-400 hover:underline">{n.title}</a>
-                <span className="px-2 py-0.5 text-xs bg-gray-800 rounded">{n.category}</span>
-                {n.feedSource && (
-                  <span className="px-2 py-0.5 text-xs rounded border border-[var(--accent)]/30 text-[var(--accent)] opacity-70">{n.feedSource}</span>
-                )}
               </div>
-              <p className="text-sm text-gray-300 mt-1">{n.summary}</p>
-              <p className="text-xs text-gray-500">{new Date(n.publishedAt).toLocaleDateString()}</p>
+              <div className="flex items-center gap-2 flex-wrap text-[10px] uppercase tracking-wider mb-2">
+                <span className="px-2 py-0.5 bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] rounded font-semibold">
+                  {n.product || n.feedSource}
+                </span>
+                <span className="px-2 py-0.5 bg-gray-800 text-gray-400 rounded">{n.category}</span>
+                <span className="text-gray-500 font-mono ml-auto">{new Date(n.publishedAt).toLocaleDateString()}</span>
+              </div>
+              <p className="text-sm text-gray-300 leading-relaxed">{n.summary}</p>
             </li>
           ))}
         </ul>

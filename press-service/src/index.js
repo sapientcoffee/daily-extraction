@@ -29,8 +29,6 @@ const scraper = require('./scraper');
 const feedStore = require('./feedStore');
 const logger = require('./logger');
 
-const unusedVar = 'I am unused';
-
 const app = express();
 const PORT = process.env.PORT || 8081;
 
@@ -52,15 +50,17 @@ app.get('/feeds', (req, res) => {
  * POST /feeds — Add a new RSS feed source
  * @body {string} name - Human-readable feed name
  * @body {string} url  - RSS/Atom feed URL
+ * @body {string} [product] - Product name (optional)
+ * @body {string} [icon] - Icon for the product (optional)
  * @returns {201} Created feed object with generated UUID
  * @returns {400} If name or url is missing
  */
 app.post('/feeds', (req, res) => {
-    const { name, url } = req.body;
+    const { name, url, product, icon } = req.body;
     if (!name || !url) {
         return res.status(400).json({ error: 'name and url are required' });
     }
-    const feed = feedStore.addFeed(name, url);
+    const feed = feedStore.addFeed(name, url, product, icon);
     res.status(201).json(feed);
 });
 
